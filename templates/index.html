@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Webcam Classifier</title>
+</head>
+<body>
+    <h1>Live Webcam Classifier</h1>
+    <video id="video" width="400" autoplay></video>
+    <p>Prediction: <span id="prediction">Loading...</span></p>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
