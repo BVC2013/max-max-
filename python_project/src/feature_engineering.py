@@ -155,7 +155,9 @@ def run(data_dir: Path, output_dir: Path, processed_dir: Path) -> None:
     enc["Days_Since_Last_Visit"]      = grp["EncounterDate_dt"].diff().dt.days.astype(float)
 
     patient_first = enc.groupby("PatientDurableKey")["EncounterDate_dt"].transform("min")
-    enc["Is_Incident_Case"] = enc["Cumulative_Days_In_Journey"] > 180
+    # Is_Incident_Case: >180 days after the patient's first-ever observed visit
+    # (across ALL diagnoses, not just within the current diagnosis journey)
+    enc["Is_Incident_Case"] = (enc["EncounterDate_dt"] - patient_first).dt.days > 180
 
     journey_max_visit = grp["Visit_Number"].transform("max")
     enc["Has_Follow_Up"]          = enc["Visit_Number"] < journey_max_visit

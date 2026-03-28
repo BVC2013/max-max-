@@ -230,7 +230,7 @@ pip install -r python_project/requirements.txt
 python python_project/run_all.py
 ```
 
-**Dependencies:** `pandas`, `numpy`, `matplotlib`, `seaborn`, `scipy`, `scikit-learn`, `statsmodels`, `geopandas`, `shapely`, `lifelines`
+**Dependencies:** `pandas`, `numpy`, `matplotlib`, `scipy`, `scikit-learn`, `statsmodels`, `pyarrow`, `lifelines`
 
 ---
 

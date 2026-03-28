@@ -151,10 +151,19 @@ enc <- enc |>
     journey_start_date        = first(encounter_date),
     cumulative_days_in_journey = as.numeric(encounter_date - journey_start_date),
     days_since_last_visit     = as.numeric(encounter_date - lag(encounter_date)),
-
-    # First-ever visit for this patient (across all diagnoses)
+  ) |>
+  ungroup() |>
+  # Is_Incident_Case: >180 days after the patient's first-ever observed visit
+  # (across ALL diagnoses, not just within the current journey)
+  group_by(patient_durable_key) |>
+  mutate(
     first_ever_visit = min(encounter_date, na.rm = TRUE),
-    is_incident_case = cumulative_days_in_journey > 180,
+    is_incident_case = as.numeric(encounter_date - first_ever_visit) > 180,
+  ) |>
+  ungroup() |>
+  group_by(patient_durable_key, diagnosis_value) |>
+  arrange(encounter_date, .by_group = TRUE) |>
+  mutate(
 
     # Follow-up: any later visit in same journey?
     has_follow_up = visit_number < max(visit_number),
