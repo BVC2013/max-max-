@@ -1,0 +1,31 @@
+# R
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj.user/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+.env
+
+# Data files (do not commit CSVs)
+data/raw/*.csv
+data/processed/*.csv
+data/processed/*.rds
+data/processed/*.parquet
+
+# Outputs
+output/plots/*.png
+output/plots/*.pdf
+output/plots/*.svg
+
+# OS
+.DS_Store
+Thumbs.db
